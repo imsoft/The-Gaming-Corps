@@ -31,7 +31,7 @@ export const BlogCard = ({
     <>
       <article
         key={id}
-        className="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-white px-8 pb-8 pt-80 sm:pt-48 lg:pt-80"
+        className="relative isolate flex flex-col justify-end overflow-hidden bg-white px-8 pb-8 pt-80 sm:pt-48 lg:pt-80"
       >
         <Image
           src={imageUrl}
@@ -40,38 +40,31 @@ export const BlogCard = ({
           width={500}
           height={500}
         />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40" />
-        <div className="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
 
-        <div className="flex flex-wrap items-center gap-y-1 overflow-hidden text-sm leading-6 text-gray-300">
-          <time dateTime={datetime} className="mr-8">
-            {date}
-          </time>
-          <div className="-ml-4 flex items-center gap-x-4">
-            <svg
-              viewBox="0 0 2 2"
-              className="-ml-0.5 h-0.5 w-0.5 flex-none fill-white/50"
-            >
-              <circle cx={1} cy={1} r={1} />
-            </svg>
-            <div className="flex gap-x-2.5">
-              <Image
-                src={author.imageUrl}
-                alt=""
-                className="h-6 w-6 flex-none rounded-full bg-white/10"
-                width={24}
-                height={24}
-              />
-              {author.name}
-            </div>
-          </div>
-        </div>
-        <h3 className="mt-3 text-lg font-semibold leading-6 text-white">
+        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-gray-950 via-gray-950/70" />
+        <div className="absolute inset-0 -z-10 ring-1 ring-inset ring-gray-950/10" />
+
+        <Image
+          src="/the-gamer-corps-isotipo.png"
+          alt=""
+          className="absolute top-5 right-9 -z-10"
+          width={50}
+          height={50}
+        />
+
+        <h3 className="mt-3 text-3xl font-semibold leading-6 text-[#2bafd8]">
           <Link href={href}>
             <span className="absolute inset-0" />
             {title}
           </Link>
         </h3>
+
+        <p className="mt-3 text-lg leading-6 text-white">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere
+          adipisci rerum vitae tempore
+        </p>
+
+        <div className="absolute inset-0 -z-10 w-80 mx-auto border-b-8 border-blue-500" />
       </article>
     </>
   );
