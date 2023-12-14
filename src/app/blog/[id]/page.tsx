@@ -16,7 +16,7 @@ export const generateStaticParams = async () => {
 
   if (!posts) return [];
 
-  return posts!.map((post) => ({
+  return posts.map((post) => ({
     postId: post._id,
   }));
 };
@@ -70,7 +70,7 @@ const BlogPage = async ({ params: { id } }: Props) => {
 
   const { requiredMetatags, content } = post;
 
-  const tags = requiredMetatags.tags!.map((tag, i) => (
+  const tags = requiredMetatags.tags.map((tag, i) => (
     <Link
       key={i}
       className={`inline-flex items-center justify-center gap-x-1 ${
@@ -110,7 +110,7 @@ const BlogPage = async ({ params: { id } }: Props) => {
 
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="mx-auto mt-16 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-              {recommendationsPosts!.map((blog) => (
+              {recommendationsPosts.map((blog) => (
                 <BlogCard key={blog.title} blog={blog} />
               ))}
             </div>

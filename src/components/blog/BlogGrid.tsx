@@ -1,8 +1,19 @@
 import { getPostsMeta } from "@/lib/posts";
 import BlogCard from "./BlogCard";
+import MessageComponent from "../shared/MessageComponent";
 
 const BlogGrid = async () => {
   const blogs = await getPostsMeta();
+
+  if (!blogs) {
+    return (
+      <MessageComponent
+        topic={"Perdón por las molestias"}
+        message={"No hay Posts 😔"}
+        comment={"Te recomendamos volver más tarde o recargar el sitio"}
+      />
+    );
+  }
 
   return (
     <>
@@ -19,7 +30,7 @@ const BlogGrid = async () => {
             </p>
           </div>
           <div className="mx-auto mt-16 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-            {blogs!.map((blog) => (
+            {blogs.map((blog) => (
               <>
                 <BlogCard key={blog.title} blog={blog} />
               </>
