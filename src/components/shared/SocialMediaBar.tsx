@@ -121,7 +121,7 @@ const SocialMediaBar = ({ iconStyle }: Props) => {
   return (
     <>
       <div className="flex space-x-6 mt-8">
-        {socialMedia?.map((item) => (
+        {socialMedia!.map((item) => (
           <Link
             key={item.name}
             href={item.href}
