@@ -5,15 +5,15 @@ export const HeroSection = () => {
   return (
     <>
       <div className="relative isolate overflow-hidden">
-        <div className="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:pb-32 lg:flex lg:px-8 lg:py-20">
+        <div className="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:pb-16 lg:flex lg:px-8 lg:py-10">
           <div className="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl lg:flex-shrink-0 lg:pt-8">
-            <Image
-              className="h-11"
+            {/* <Image
+              className="h-auto w-auto"
               src="/the-gamer-corps-isologo.png"
               alt="The Gaming Corps"
               width={264}
               height={64}
-            />
+            /> */}
             <h1 className="mt-10 text-4xl font-bold tracking-tight text-blue-600 sm:text-6xl">
               Tu Fuente Diaria de Noticias
             </h1>
@@ -42,7 +42,8 @@ export const HeroSection = () => {
                   alt="App screenshot"
                   width={1080}
                   height={1080}
-                  className="w-[60rem] h-[45rem] rounded-md shadow-2xl ring-1 ring-gray-900/10"
+                  className="w-[60rem] h-[47rem] rounded-md shadow-2xl ring-1 ring-gray-900/10"
+                  priority
                 />
               </div>
             </div>

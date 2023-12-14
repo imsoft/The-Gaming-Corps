@@ -1,38 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
 
-interface Props {
-  id: string;
-  title: string;
-  href: string;
-  description: string;
-  imageUrl: string;
-  date: string;
-  datetime: string;
-  author: Author;
-}
+export const BlogCard = ({ blog }: any) => {
+  const imageUrl =
+    "http://127.0.0.1:1337" + blog.attributes.img.data.attributes.url;
 
-interface Author {
-  name: string;
-  imageUrl: string;
-}
-
-export const BlogCard = ({
-  id,
-  title,
-  href,
-  description,
-  imageUrl,
-  date,
-  datetime,
-  author,
-}: Props) => {
   return (
     <>
-      <article
-        key={id}
-        className="relative isolate flex flex-col justify-end overflow-hidden bg-white px-8 pb-8 pt-80 sm:pt-48 lg:pt-80"
-      >
+      <article className="relative isolate flex flex-col justify-end overflow-hidden bg-white px-8 pb-8 pt-80 sm:pt-48 lg:pt-80">
         <Image
           src={imageUrl}
           alt=""
@@ -47,21 +22,20 @@ export const BlogCard = ({
         <Image
           src="/the-gamer-corps-isotipo.png"
           alt=""
-          className="absolute top-5 right-9 -z-10"
+          className="absolute top-5 right-9 -z-10 h-auto w-auto"
           width={50}
           height={50}
         />
 
-        <h3 className="mt-3 text-3xl font-semibold leading-6 text-[#2bafd8]">
-          <Link href={href}>
+        <h3 className="mt-3 text-3xl font-semibold leading-8 text-[#2bafd8]">
+          <Link href={`/blog/${blog.id}`}>
             <span className="absolute inset-0" />
-            {title}
+            {blog.attributes.Title}
           </Link>
         </h3>
 
-        <p className="mt-3 text-lg leading-6 text-white">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Facere
-          adipisci rerum vitae tempore
+        <p className="mt-3 text-lg leading-6 text-white line-clamp-3">
+          {blog.attributes.Description}
         </p>
 
         <div className="absolute inset-0 -z-10 w-80 mx-auto border-b-8 border-blue-500" />

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { spaceGrotesk } from "@/fonts/fonts";
-import { Footer } from "@/components";
+import { Footer, Header } from "@/components";
 
 export const metadata: Metadata = {
   title: "The Gaming Corps",
@@ -15,7 +15,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
-      <body className={`${spaceGrotesk.className} bg-gradient-to-br from-[#062A52] to-[#040811]`}>
+      <body
+        className={`${spaceGrotesk.className} bg-gradient-to-br from-[#062A52] to-[#040811]`}
+      >
+        <Header />
         {children}
         <Footer />
       </body>

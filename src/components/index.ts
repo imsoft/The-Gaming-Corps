@@ -7,3 +7,4 @@ export * from './hero/HeroSection';
 
 // Shared
 export * from './shared/Footer';
+export * from './shared/Header';

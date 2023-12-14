@@ -1,6 +1,4 @@
-import { BlogGrid, HeroSection } from "@/components";
-
-const fetchBlogs = async () => {
+export const fetchBlogs = async () => {
   const options = {
     headers: {
       Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
@@ -18,20 +16,3 @@ const fetchBlogs = async () => {
     console.error(error);
   }
 };
-
-const HomePage = async () => {
-  const blogs = await fetchBlogs();
-
-  if (!blogs) {
-    console.log("No hay blogs");
-  }
-
-  return (
-    <>
-      <HeroSection />
-      <BlogGrid blogs={blogs} />
-    </>
-  );
-};
-
-export default HomePage;
