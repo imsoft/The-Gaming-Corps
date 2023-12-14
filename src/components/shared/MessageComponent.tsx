@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 interface NotificationMessage {
   topic: string;
   message: string;
@@ -20,17 +18,6 @@ const MessageComponent = ({ topic, message, comment }: NotificationMessage) => {
                 {message}
               </h1>
               <p className="mt-2 text-lg text-gray-500">{comment}</p>
-            </div>
-            <div className="mt-12">
-              <div className="mt-8">
-                <Link
-                  href="/"
-                  className="text-base font-medium text-gray-400 hover:text-gray-500"
-                >
-                  Regresar al inicio
-                  <span aria-hidden="true"> &rarr;</span>
-                </Link>
-              </div>
             </div>
           </div>
         </main>
