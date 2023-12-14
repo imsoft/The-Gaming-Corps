@@ -1,58 +1,123 @@
-import Image from "next/image";
+import { getPostByName, getPostsMeta, getPostsMetaRandom } from "@/lib/posts";
+import { notFound } from "next/navigation";
+import Link from "next/link";
+import BlogCard from "@/components/blog/BlogCard";
 
-const fetchBlog = async (id: number) => {
-  const options = {
-    headers: {
-      Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
-    },
+export const revalidate = 86400; // un dia en segundos
+
+type Props = {
+  params: {
+    id: string;
   };
-
-  try {
-    const res = await fetch(
-      `http://127.0.0.1:1337/api/blogs/${id}?populate=*`,
-      options
-    );
-    const response = await res.json();
-    return response;
-  } catch (error) {
-    console.error(error);
-  }
 };
 
-const BlogPage = async ({ params }: any) => {
-  const blog = await fetchBlog(params.id);
+export const generateStaticParams = async () => {
+  const posts = await getPostsMeta();
 
-  const imageUrl =
-    "http://127.0.0.1:1337" + blog.data.attributes.img.data.attributes.url;
+  if (!posts) return [];
+
+  return posts.map((post) => ({
+    postId: post._id,
+  }));
+};
+
+export const generateMetadata = async ({ params: { id } }: Props) => {
+  const post = await getPostByName(`${id}.mdx`);
+
+  if (!post) {
+    return { title: "Post Not Found" };
+  }
+
+  return {
+    title: post.requiredMetatags.title,
+    description: post.requiredMetatags.description,
+    keywords: post.requiredMetatags.keywords,
+    twitter: {
+      card: "summary_large_image",
+      title: post.requiredMetatags.title,
+      description: post.requiredMetatags.description,
+      images: {
+        url: post.requiredMetatags.image,
+        alt: post.requiredMetatags.title,
+      },
+    },
+    openGraph: {
+      title: post.requiredMetatags.title,
+      description: post.requiredMetatags.description,
+      type: "article",
+      publishedTime: post.requiredMetatags.date,
+      authors: [post.requiredMetatags.author],
+      url: post.requiredMetatags.url,
+      images: [
+        {
+          url: post.requiredMetatags.image,
+          width: 783,
+          height: 783,
+          alt: post.requiredMetatags.title,
+        },
+      ],
+    },
+  };
+};
+
+const BlogPage = async ({ params: { id } }: Props) => {
+  const recommendationsPosts = await getPostsMetaRandom(3);
+  const post = await getPostByName(`${id}.mdx`); // deduped!
+
+  if (!post) notFound();
+
+  if (!recommendationsPosts) notFound();
+
+  const { requiredMetatags, content } = post;
+
+  const tags = requiredMetatags.tags.map((tag, i) => (
+    <Link
+      key={i}
+      className={`inline-flex items-center justify-center gap-x-1 ${
+        i === 0 ? "hidden" : ""
+      } rounded-full bg-blue-100 px-2 py-2 text-xs font-medium text-blue-700`}
+      href={`/tags/${tag}`}
+    >
+      <svg
+        className="h-1.5 w-1.5 fill-blue-500"
+        viewBox="0 0 6 6"
+        aria-hidden="true"
+      >
+        <circle cx={3} cy={3} r={3} />
+      </svg>
+      {tag}
+    </Link>
+  ));
 
   return (
-    <div className="mx-auto max-w-7xl items-center px-4 py-5 sm:px-6 sm:py-4 md:justify-start lg:px-8">
-      <article className="prose prose-lg prose-indigo max-w-screen-lg mx-auto mt-6 text-gray-500">
-        <h1 className="mt-2 text-3xl font-bold tracking-tight text-blue-500 sm:text-4xl">
-          {blog.data.attributes.Title}
-        </h1>
-        <div className="relative w-full h-[35rem] overflow-hidden rounded-xl mt-5">
-          <Image
-            layout="fill"
-            objectFit="cover"
-            src={imageUrl}
-            alt={""}
-            sizes="(min-width: 1140px) 1024px, 92.2vw"
-            className="rounded-xl"
-            priority
-          />
+    <>
+      <div className="mx-auto max-w-7xl items-center px-4 py-5 sm:px-6 sm:py-4 md:justify-start lg:px-8">
+        <div className="prose prose-lg prose-h1:text-blue-500 prose-h2:text-blue-400 max-w-screen-lg mx-auto mt-6 text-gray-100">
+          <article className="">{content}</article>
         </div>
-        <div className="mt-5">
-          <p className="text-white mt-2">{blog.data.attributes.Description}</p>
-          <div className="mt-4 flex items-center text-gray-400">
-            <span className="text-sm">
-              Publised on{" "}
-              {new Date(blog.data.attributes.publishedAt).toLocaleString()}
-            </span>
+        <section className="mt-24">
+          <h3 className="text-3xl mb-10 font-bold tracking-tight text-blue-500 sm:text-4xl">
+            Artículos relacionados:
+          </h3>
+          <div className="space-y-4 space-x-4 flex flex-wrap items-center justify-center mb-10">
+            {tags}
           </div>
-        </div>
-      </article>
-    </div>
+        </section>
+        <section className="mt-24">
+          <h3 className="text-3xl mb-10 font-bold tracking-tight text-blue-500 sm:text-4xl">
+            Tambien puedes leer:
+          </h3>
+
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="mx-auto mt-16 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+              {recommendationsPosts.map((blog) => (
+                <BlogCard key={blog.title} blog={blog} />
+              ))}
+            </div>
+          </div>
+        </section>
+      </div>
+    </>
   );
 };
 

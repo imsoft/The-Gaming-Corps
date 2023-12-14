@@ -3,16 +3,10 @@ const nextConfig = {
     images: {
       remotePatterns: [
         {
-          protocol: "https",
-          hostname: "tailwindui.com",
-        },
-        {
-          protocol: "https",
-          hostname: "images.unsplash.com",
-        },
-        {
-          protocol: "http",
-          hostname: "127.0.0.1",
+          protocol: 'https',
+          hostname: 'raw.githubusercontent.com',
+          port: '',
+          pathname: '/imsoft/BlogPosts/main/images/**',
         },
       ],
     },

@@ -1,15 +1,33 @@
 import Image from "next/image";
 import Link from "next/link";
+import { RequiredMetatags } from "@/interfaces";
 
-export const BlogCard = ({ blog }: any) => {
-  const imageUrl =
-    "http://127.0.0.1:1337" + blog.attributes.img.data.attributes.url;
+interface Props {
+  blog: RequiredMetatags;
+}
+
+const BlogCard = ({ blog }: Props) => {
+  const {
+    _id,
+    title,
+    description,
+    keywords,
+    author,
+    subject,
+    date,
+    type,
+    source,
+    image,
+    url,
+    robots,
+    tags,
+  } = blog;
 
   return (
     <>
       <article className="relative isolate flex flex-col justify-end overflow-hidden bg-white px-8 pb-8 pt-80 sm:pt-48 lg:pt-80">
         <Image
-          src={imageUrl}
+          src={image}
           alt=""
           className="absolute inset-0 -z-10 h-full w-full object-cover"
           width={500}
@@ -28,14 +46,14 @@ export const BlogCard = ({ blog }: any) => {
         />
 
         <h3 className="mt-3 text-3xl font-semibold leading-8 text-[#2bafd8]">
-          <Link href={`/blog/${blog.id}`}>
+          <Link href={`/blog/${_id}`}>
             <span className="absolute inset-0" />
-            {blog.attributes.Title}
+            {title}
           </Link>
         </h3>
 
-        <p className="mt-3 text-lg leading-6 text-white line-clamp-3">
-          {blog.attributes.Description}
+        <p className="mt-3 text-lg leading-6 text-gray-100 line-clamp-3">
+          {description}
         </p>
 
         <div className="absolute inset-0 -z-10 w-80 mx-auto border-b-8 border-blue-500" />
@@ -43,3 +61,5 @@ export const BlogCard = ({ blog }: any) => {
     </>
   );
 };
+
+export default BlogCard;

@@ -17,7 +17,7 @@ export const HeroSection = () => {
             <h1 className="mt-10 text-4xl font-bold tracking-tight text-blue-600 sm:text-6xl">
               Tu Fuente Diaria de Noticias
             </h1>
-            <p className="mt-6 text-lg leading-8 text-white">
+            <p className="mt-6 text-lg leading-8 text-gray-100">
               Bienvenidos a The Gaming Corps, el epicentro de las últimas y más
               emocionantes noticias del mundo de la tecnología y los
               videojuegos. Aquí, cada día es una aventura en el vasto universo
@@ -28,7 +28,7 @@ export const HeroSection = () => {
             <div className="mt-10 flex items-center gap-x-6">
               <Link
                 href="#"
-                className="rounded-md bg-blue-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                className="rounded-md bg-blue-600 px-3.5 py-2.5 text-sm font-semibold text-gray-100 shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
               >
                 ¡Informate de todo!
               </Link>
