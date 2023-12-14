@@ -25,7 +25,7 @@ const MessageComponent = ({ topic, message, comment }: NotificationMessage) => {
               <div className="mt-8">
                 <Link
                   href="/"
-                  className="text-base font-medium text-primary-600 hover:text-gray-500"
+                  className="text-base font-medium text-gray-400 hover:text-gray-500"
                 >
                   Regresar al inicio
                   <span aria-hidden="true"> &rarr;</span>
