@@ -3,10 +3,10 @@ import Link from "next/link";
 import { RequiredMetatags } from "@/interfaces";
 
 interface Props {
-  blog: RequiredMetatags;
+  post: RequiredMetatags;
 }
 
-const BlogCard = ({ blog }: Props) => {
+const BlogCard = ({ post }: Props) => {
   const {
     _id,
     title,
@@ -21,7 +21,7 @@ const BlogCard = ({ blog }: Props) => {
     url,
     robots,
     tags,
-  } = blog;
+  } = post;
 
   return (
     <>

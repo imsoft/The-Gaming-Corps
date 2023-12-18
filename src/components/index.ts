@@ -1,6 +1,6 @@
 // Blog
-export * from './blog/BlogGrid';
-export * from './blog/BlogCard';
+export * from './article/ArticleGrid';
+export * from './article/ArticleCard';
 
 // Hero
 export * from './hero/HeroSection';

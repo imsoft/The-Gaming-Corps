@@ -1,8 +1,8 @@
 import { JSXElementConstructor, ReactElement } from "react";
 import { compileMDX } from "next-mdx-remote/rsc";
-import YouTube from "../components/blog/YouTube";
-import ArticleImage from "../components/blog/ArticleImage";
-import Spotify from "../components/blog/Spotify";
+import YouTube from "../components/article/YouTube";
+import ArticleImage from "../components/article/ArticleImage";
+import Spotify from "../components/article/Spotify";
 import { RequiredMetatags } from "@/interfaces";
 
 type Filetree = {

@@ -1,13 +1,13 @@
 import { getPostByName, getPostsMeta, getPostsMetaRandom } from "@/lib/posts";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import BlogCard from "@/components/blog/BlogCard";
+import BlogCard from "@/components/article/ArticleCard";
 
 export const revalidate = 86400; // un dia en segundos
 
 type Props = {
   params: {
-    id: string;
+    postId: string;
   };
 };
 
@@ -21,8 +21,8 @@ export const generateStaticParams = async () => {
   }));
 };
 
-export const generateMetadata = async ({ params: { id } }: Props) => {
-  const post = await getPostByName(`${id}.mdx`);
+export const generateMetadata = async ({ params: { postId } }: Props) => {
+  const post = await getPostByName(`${postId}.mdx`);
 
   if (!post) {
     return { title: "Post Not Found" };
@@ -60,9 +60,9 @@ export const generateMetadata = async ({ params: { id } }: Props) => {
   };
 };
 
-const BlogPage = async ({ params: { id } }: Props) => {
+const BlogPage = async ({ params: { postId } }: Props) => {
   const recommendationsPosts = await getPostsMetaRandom(3);
-  const post = await getPostByName(`${id}.mdx`); // deduped!
+  const post = await getPostByName(`${postId}.mdx`); // deduped!
 
   if (!post) notFound();
 
@@ -110,8 +110,8 @@ const BlogPage = async ({ params: { id } }: Props) => {
 
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="mx-auto mt-16 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-              {recommendationsPosts.map((blog) => (
-                <BlogCard key={blog.title} blog={blog} />
+              {recommendationsPosts.map((post) => (
+                <BlogCard key={post.title} post={post} />
               ))}
             </div>
           </div>
