@@ -6,7 +6,7 @@ const nextConfig = {
           protocol: 'https',
           hostname: 'raw.githubusercontent.com',
           port: '',
-          pathname: '/imsoft/BlogPosts/main/images/**',
+          pathname: '/imsoft/The-Gaming-Corps-Blog/main/images/**',
         },
       ],
     },
