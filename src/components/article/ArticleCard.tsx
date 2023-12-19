@@ -6,7 +6,7 @@ interface Props {
   post: RequiredMetatags;
 }
 
-const BlogCard = ({ post }: Props) => {
+const ArticleCard = ({ post }: Props) => {
   const {
     _id,
     title,
@@ -46,7 +46,7 @@ const BlogCard = ({ post }: Props) => {
         />
 
         <h3 className="mt-3 text-3xl font-semibold leading-8 text-[#2bafd8]">
-          <Link href={`/blog/${_id}`}>
+          <Link href={`/articulos/${_id}`}>
             <span className="absolute inset-0" />
             {title}
           </Link>
@@ -62,4 +62,4 @@ const BlogCard = ({ post }: Props) => {
   );
 };
 
-export default BlogCard;
+export default ArticleCard;

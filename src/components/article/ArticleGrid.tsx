@@ -1,8 +1,8 @@
 import { getPostsMeta } from "@/lib/posts";
-import BlogCard from "./ArticleCard";
 import MessageComponent from "../shared/MessageComponent";
+import ArticleCard from "./ArticleCard";
 
-const BlogGrid = async () => {
+const ArticleGrid = async () => {
   const posts = await getPostsMeta();
 
   if (!posts) {
@@ -32,7 +32,7 @@ const BlogGrid = async () => {
           <div className="mx-auto mt-16 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
             {posts.map((post) => (
               <>
-                <BlogCard key={post._id} post={post} />
+                <ArticleCard key={post._id} post={post} />
               </>
             ))}
           </div>
@@ -42,4 +42,4 @@ const BlogGrid = async () => {
   );
 };
 
-export default BlogGrid;
+export default ArticleGrid;

@@ -1,11 +1,11 @@
 import { HeroSection } from "@/components";
-import BlogGrid from "@/components/article/ArticleGrid";
+import ArticleGrid from "@/components/article/ArticleGrid";
 
 const HomePage = async () => {
   return (
     <>
       <HeroSection />
-      <BlogGrid />
+      <ArticleGrid />
     </>
   );
 };
