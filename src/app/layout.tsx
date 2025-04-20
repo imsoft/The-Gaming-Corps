@@ -6,6 +6,7 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
+import { Analytics } from "@vercel/analytics/react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -49,6 +50,7 @@ export default function RootLayout({
             <Toaster />
           </div>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
