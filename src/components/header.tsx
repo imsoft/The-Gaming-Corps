@@ -9,11 +9,22 @@ import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 import { ModeToggle } from "@/components/mode-toggle";
 import { useEffect, useState } from "react";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { Menu } from "lucide-react";
+import { Button } from "./ui/button";
 
 export default function Header() {
   const pathname = usePathname();
   const { theme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   // Evitar problemas de hidratación
   useEffect(() => {
@@ -59,20 +70,57 @@ export default function Header() {
           </nav>
         </div>
         <div className="flex items-center gap-4">
-          <nav className="flex md:hidden items-center space-x-4">
-            <NavLink href="/" active={pathname === "/"}>
-              Inicio
-            </NavLink>
-            <NavLink href="/blog" active={pathname.startsWith("/blog")}>
-              Blog
-            </NavLink>
-            <NavLink href="/nosotros" active={pathname === "/nosotros"}>
-              Nosotros
-            </NavLink>
-            <NavLink href="/contacto" active={pathname === "/contacto"}>
-              Contacto
-            </NavLink>
-          </nav>
+          {/* Menú de hamburguesa para móviles */}
+          <Sheet open={isOpen} onOpenChange={setIsOpen}>
+            <SheetTrigger asChild className="md:hidden">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="p-0"
+                aria-label="Abrir menú"
+              >
+                <Menu className="h-5 w-5" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" className="w-[250px] sm:w-[300px]">
+              <SheetHeader className="mb-6">
+                <SheetTitle>The Gaming Corps</SheetTitle>
+                <SheetDescription>
+                  La comunidad de gamers más grande de Latinoamérica.
+                </SheetDescription>
+              </SheetHeader>
+              <nav className="flex flex-col items-center space-y-4 text-center">
+                <MobileNavLink
+                  href="/"
+                  active={pathname === "/"}
+                  onClick={() => setIsOpen(false)}
+                >
+                  Inicio
+                </MobileNavLink>
+                <MobileNavLink
+                  href="/blog"
+                  active={pathname.startsWith("/blog")}
+                  onClick={() => setIsOpen(false)}
+                >
+                  Blog
+                </MobileNavLink>
+                <MobileNavLink
+                  href="/nosotros"
+                  active={pathname === "/nosotros"}
+                  onClick={() => setIsOpen(false)}
+                >
+                  Nosotros
+                </MobileNavLink>
+                <MobileNavLink
+                  href="/contacto"
+                  active={pathname === "/contacto"}
+                  onClick={() => setIsOpen(false)}
+                >
+                  Contacto
+                </MobileNavLink>
+              </nav>
+            </SheetContent>
+          </Sheet>
           <ModeToggle />
         </div>
       </div>
@@ -95,6 +143,31 @@ function NavLink({ href, active, children }: NavLinkProps) {
         active ? "text-blue-500" : "text-muted-foreground",
         "after:absolute after:bottom-0 after:left-0 after:right-0 after:h-[2px] after:bg-blue-500 after:origin-center after:scale-x-0 after:transition-transform after:duration-300 hover:after:scale-x-100",
         active && "after:scale-x-100"
+      )}
+    >
+      {children}
+    </Link>
+  );
+}
+
+interface MobileNavLinkProps extends NavLinkProps {
+  onClick?: () => void;
+}
+
+function MobileNavLink({
+  href,
+  active,
+  onClick,
+  children,
+}: MobileNavLinkProps) {
+  return (
+    <Link
+      href={href}
+      onClick={onClick}
+      className={cn(
+        "flex w-full items-center justify-center py-3 text-base font-medium transition-colors hover:text-foreground",
+        active ? "text-blue-500" : "text-muted-foreground",
+        active && "bg-accent/50 rounded-md"
       )}
     >
       {children}
