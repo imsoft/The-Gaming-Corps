@@ -6,41 +6,10 @@ import Image from "next/image";
 import { useTheme } from "next-themes";
 import { Mail } from "lucide-react";
 import { useEffect } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import * as z from "zod";
-import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { toast } from "sonner";
-
-// Esquema de validación para el formulario de newsletter
-const newsletterSchema = z.object({
-  email: z.string().email({
-    message: "Por favor, introduce un email válido.",
-  }),
-});
-
-type NewsletterFormValues = z.infer<typeof newsletterSchema>;
 
 export default function Footer() {
   const { theme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // Inicializar el formulario de newsletter
-  const form = useForm<NewsletterFormValues>({
-    resolver: zodResolver(newsletterSchema),
-    defaultValues: {
-      email: "",
-    },
-  });
 
   // Evitar problemas de hidratación
   useEffect(() => {
@@ -54,33 +23,10 @@ export default function Footer() {
     ? "/logo-dark-theme.png"
     : "/logo-light-theme.png";
 
-  // Función para manejar el envío del formulario de newsletter
-  async function onSubmitNewsletter(data: NewsletterFormValues) {
-    console.log(data);
-    setIsSubmitting(true);
-
-    try {
-      // Aquí iría la lógica para suscribir al usuario al newsletter
-      // Por ahora, simulamos una espera y mostramos un toast de éxito
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      toast("¡Suscripción exitosa!", {
-        description: "Te has suscrito correctamente a nuestro newsletter.",
-      });
-
-      form.reset();
-    } catch (error) {
-      toast("Error", {
-        description: `Ha ocurrido un error al procesar tu suscripción. Por favor, inténtalo de nuevo. El error es: ${error}`,
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
-  }
-
   return (
     <footer className="w-full border-t border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-2">
           <div className="space-y-3">
             <div className="relative h-8 w-40">
               <Image
@@ -200,40 +146,6 @@ export default function Footer() {
                 </Link>
               </li>
             </ul>
-          </div>
-          <div className="space-y-3">
-            <h3 className="text-lg font-bold">Newsletter</h3>
-            <p className="text-sm text-muted-foreground">
-              Suscríbete para recibir las últimas noticias.
-            </p>
-
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmitNewsletter)}
-                className="space-y-2"
-              >
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input placeholder="Tu email" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <Button
-                  type="submit"
-                  className="custom-button primary-button w-full"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? "Procesando..." : "Suscribirse"}
-                </Button>
-              </form>
-            </Form>
           </div>
         </div>
         <div className="mt-8 border-t border-border pt-8 text-center text-sm text-muted-foreground">
