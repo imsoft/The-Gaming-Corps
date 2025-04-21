@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Send } from "lucide-react";
+import { CheckCircle, Send, XCircle } from "lucide-react";
 import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -58,23 +58,39 @@ const ContactoPage = () => {
 
   // Función para manejar el envío del formulario
   async function onSubmit(data: FormValues) {
-    console.log(data);
     setIsSubmitting(true);
 
     try {
-      // Aquí iría la lógica para enviar el formulario a un backend
-      // Por ahora, simulamos una espera y mostramos un toast de éxito
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nombre: data.nombre,
+          email: data.email,
+          asunto: data.asunto,
+          mensaje: data.mensaje,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("No se pudo enviar el mensaje.");
+      }
 
       toast("Mensaje enviado", {
         description:
           "Hemos recibido tu mensaje. Te responderemos lo antes posible.",
+        icon: <CheckCircle className="text-white" />,
+        className: "bg-green-600 text-white",
+        duration: 5000,
       });
-
       form.reset();
     } catch (error) {
-      toast("Error", {
-        description: `Ha ocurrido un error al enviar el mensaje. Por favor, inténtalo de nuevo. Mensaje del error: ${error}`,
+      console.error(error);
+      toast("Error al enviar", {
+        description:
+          "Hubo un problema al enviar el formulario. Intenta más tarde.",
+        icon: <XCircle className="text-white" />,
+        className: "bg-red-600 text-white",
       });
     } finally {
       setIsSubmitting(false);
