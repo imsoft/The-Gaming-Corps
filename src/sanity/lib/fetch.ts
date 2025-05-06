@@ -19,6 +19,6 @@ export async function sanityFetch<QueryResponse>({
     .withConfig({ useCdn: true })
     .fetch<QueryResponse>(query, params, {
       cache: isDevelopment ? undefined : "force-cache",
-      next: { tags },
+      next: { revalidate: 60, tags },
     });
 }
