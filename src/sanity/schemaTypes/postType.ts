@@ -48,8 +48,6 @@ export const postType = defineType({
         }),
       ],
     }),
-
-    // ✅ Cambiado a array de referencias
     defineField({
       name: "categories",
       title: "Categorías",
@@ -58,7 +56,6 @@ export const postType = defineType({
         defineArrayMember({ type: "reference", to: [{ type: "category" }] }),
       ],
     }),
-
     defineField({
       name: "subcategories",
       title: "Subcategorías",
@@ -67,7 +64,6 @@ export const postType = defineType({
         defineArrayMember({ type: "reference", to: [{ type: "subcategory" }] }),
       ],
     }),
-
     defineField({
       name: "publishedAt",
       title: "Fecha de publicación",

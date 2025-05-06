@@ -12,6 +12,7 @@ import { sanityFetch } from "@/sanity/lib/fetch";
 import { Post } from "@/lib/types";
 import { Metadata } from "next";
 import { Badge } from "@/components/ui/badge";
+import { portableTextComponents } from "@/components/portable-text/components";
 
 export async function generateMetadata({
   params,
@@ -143,7 +144,7 @@ export default async function BlogPostPage({
         </div>
 
         <div className="prose prose-lg dark:prose-invert max-w-none">
-          <PortableText value={post.content} />
+          <PortableText value={post.content} components={portableTextComponents} />
         </div>
 
         <div className="mt-8 flex items-center justify-between border-t border-border pt-8">
