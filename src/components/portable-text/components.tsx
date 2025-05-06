@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Script from "next/script";
 import { urlFor } from "@/sanity/lib/image";
+import type { SanityImageAssetDocument } from "@sanity/client";
 
 export const portableTextComponents = {
   types: {
@@ -42,7 +43,7 @@ export const portableTextComponents = {
         </div>
       );
     },
-    image: ({ value }: { value: any }) => {
+    image: ({ value }: { value: { asset: SanityImageAssetDocument; alt?: string } }) => {
       if (!value?.asset) return null;
 
       const imageUrl = urlFor(value).width(1200).url();
